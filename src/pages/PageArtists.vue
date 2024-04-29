@@ -1,5 +1,6 @@
 <template>
     <div>
+        <!-- Artists -->
         <table border="1">
             <tr>
                 <th>
@@ -19,6 +20,12 @@
                 </td>
             </tr>
         </table>
+
+        <!-- Add a new artists -->
+        <input type="text" v-model="newArtist">
+        <button @click="addArtist()">
+            Add Artist
+        </button>
     </div>
 </template>
 
@@ -30,7 +37,8 @@
         },
         data() {
             return {
-                artists: []
+                artists: [],
+                newArtist: ""
             }
         },
         methods: {
@@ -40,6 +48,21 @@
                     .then((_artists) => {
                         this.artists = _artists;
                     })
+            },
+            addArtist() {
+                fetch("http://webservies.be/eurosong/Artists", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        name: this.newArtist
+                    })
+                }).then(response => response.json())
+                .then((newArtist) => {
+                    console.log(newArtist);
+                    this.fetchArtists();
+                })
             }
         }
     }
