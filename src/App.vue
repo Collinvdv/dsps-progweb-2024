@@ -20,7 +20,7 @@
 
     <PageHome v-if="activePage == pages[0]"/>
     <PageRanking v-if="activePage == pages[1]"/>
-    <PageVoting v-if="activePage == pages[2]"/>
+    <PageVoting v-if="activePage == pages[2]" @setactivepage="setActivePage"/>
     <PageArtists v-if="activePage == pages[3]"/>
   </div>
 </template>
@@ -47,7 +47,7 @@
           "voting",
           "artists"
         ],
-        activePage: "artists"
+        activePage: "voting"
       }
     },
     methods: {
